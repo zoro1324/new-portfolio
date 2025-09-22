@@ -3,6 +3,7 @@ import { useTheme } from './hooks/useTheme';
 import Background from './components/Background';
 import Home from './components/home';
 import Footer from './components/footer';
+import CursorEffects from './components/CursorEffects';
 import './App.css';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   return (
     <div className="min-h-screen transition-all duration-300 relative">
       <Background />
+      <CursorEffects />
       <Navbar />
       {/* Main content with top padding for navbar */}
       <main className="relative z-10">

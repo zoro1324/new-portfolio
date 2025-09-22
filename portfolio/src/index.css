@@ -1,3 +1,21 @@
+@keyframes typewriter {
+  from { width: 0 }
+  to { width: 100% }
+}
+.typewriter {
+  overflow: hidden;
+  border-right: 2.5px solid var(--accent-primary);
+  width: 0;
+  animation: typewriter 2.2s steps(24, end) 0.2s 1 normal both;
+}
+@keyframes fadeinup {
+  0% { opacity: 0; transform: translateY(32px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeinup {
+  opacity: 0;
+  animation: fadeinup 0.7s cubic-bezier(.23,1.01,.32,1) forwards;
+}
 @import "tailwindcss";
 
 /* Deep Sea Theme Variables */

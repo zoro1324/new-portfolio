@@ -1,7 +1,8 @@
 import React from 'react';
 
 function SocialIcon({ type, href, label }) {
-    const common = 'inline-flex items-center justify-center w-10 h-10 rounded-full glass-surface hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]';
+    // Add ring and color on hover for all icons
+    const common = 'inline-flex items-center justify-center w-10 h-10 rounded-full glass-surface transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] hover:ring-2 hover:ring-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/10 hover:text-[var(--accent-primary)]';
     return (
         <a className={common} href={href} aria-label={label} target="_blank" rel="noreferrer noopener">
             {type === 'github' && (
@@ -23,18 +24,32 @@ function SocialIcon({ type, href, label }) {
     );
 }
 
-function Stat({ value, label }) {
+function Stat({ value, label, index }) {
+    // Add animation delay based on index for staggered effect, add hover effect
     return (
-        <div className="glass-surface rounded-xl px-5 py-4 text-left">
+        <div
+            className="glass-surface rounded-xl px-5 py-4 text-left animate-fadeinup transition-transform duration-200 hover:scale-105 hover:shadow-xl"
+            style={{
+                animationDelay: `${0.1 + (index || 0) * 0.12}s`,
+                animationFillMode: 'both',
+            }}
+        >
             <div className="text-2xl font-semibold text-glow" style={{ color: 'var(--accent-primary)' }}>{value}</div>
             <div className="text-sm opacity-80">{label}</div>
         </div>
     );
 }
 
-function Chip({ children }) {
+function Chip({ children, index }) {
+    // Add animation delay based on index for staggered effect, add hover effect
     return (
-        <span className="px-3 py-1 rounded-full text-sm glass-surface border border-[var(--border-glass)]">
+        <span
+            className="px-3 py-1 rounded-full text-sm glass-surface border border-[var(--border-glass)] animate-fadeinup transition-transform duration-200 hover:scale-105 hover:shadow-lg"
+            style={{
+                animationDelay: `${0.3 + (index || 0) * 0.07}s`,
+                animationFillMode: 'both',
+            }}
+        >
             {children}
         </span>
     );
@@ -46,13 +61,12 @@ function Home() {
         name: 'Naveen Kumar G',
         role: 'B.Tech AI & DS Student · Data Science Enthusiast',
         tagline: 'Second-year undergraduate at KGISL Institute of Technology, Coimbatore. Passionate about AI, ML, and Data Science. Strong in Python, React, and modern web technologies. Experienced with REST APIs, RPA (UiPath), and hardware integration.',
-        location: 'Coimbatore, India',
-        years: '2',
+        location: 'Coimbatore',
         projects: '10+',
         resumeUrl: '#',
-        email: 'you@example.com',
+        email: 'naveen13524g@gmail.com',
         socials: {
-            github: 'https://github.com/your-username',
+            github: 'https://github.com/zoro1324',
             linkedin: 'https://www.linkedin.com/in/your-username/'
         },
         stack: [
@@ -68,17 +82,25 @@ function Home() {
                 <div className="w-full h-full bg-white/60 dark:bg-[#0a0a1a]/60 backdrop-blur-[2px]" />
             </div>
             <div className="relative z-10 max-w-3xl mx-auto px-4 md:px-0 flex flex-col items-center text-center">
-                <p className="text-xs tracking-widest uppercase opacity-70 mb-2 mt-2">Welcome to my portfolio</p>
-                <h1 className="text-display text-5xl md:text-6xl font-bold leading-tight mb-2">
-                    Hi, I’m <span className="text-glow" style={{ color: 'var(--accent-primary)' }}>{details.name}</span>
+                <p className="text-xs tracking-widest uppercase opacity-70 mb-2 mt-2" >Welcome to my portfolio</p>
+                <h1 className="text-display text-5xl md:text-6xl font-bold leading-tight mb-2 flex flex-wrap items-center justify-center">
+                    <span>Hi, I’m&nbsp;</span>
+                    <span
+                        className="text-glow typewriter"
+                        style={{ color: 'var(--accent-primary)', whiteSpace: 'nowrap', display: 'inline-block' }}
+                    >
+                        {details.name}
+                    </span>
                 </h1>
                 <h2 className="mt-1 text-xl md:text-2xl font-medium opacity-90 mb-2">{details.role}</h2>
-                <p className="mt-2 text-base md:text-lg opacity-80 max-w-2xl mx-auto mb-4">{details.tagline}</p>
+                                                <p className="mt-2 text-base md:text-lg opacity-80 max-w-6xl mx-auto mb-4" style={{lineHeight:1.7}}>
+                                                    Second-year undergraduate at KGISL Institute of Technology, Coimbatore. Passionate about Artificial Intelligence, Machine Learning, and Data Science. I have a strong foundation in Python, React, and modern web technologies, and hands-on experience with REST APIs, RPA (UiPath), and hardware integration through academic and personal projects.
+                                                </p>
                 {/* Actions */}
                 <div className="mt-4 flex items-center justify-center gap-2 flex-wrap">
                     <a
                         href={details.resumeUrl}
-                        className="px-5 py-2 rounded-full font-semibold text-white bg-[var(--accent-primary)] hover:opacity-90 transition-opacity shadow-sm"
+                        className="px-5 py-2 rounded-full font-semibold border border-[var(--accent-primary)] text-[var(--accent-primary)] bg-transparent shadow-sm transition-all duration-200 hover:scale-105 hover:bg-[var(--accent-primary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]"
                         target={details.resumeUrl?.startsWith('http') ? '_blank' : undefined}
                         rel={details.resumeUrl?.startsWith('http') ? 'noreferrer noopener' : undefined}
                     >
@@ -86,7 +108,7 @@ function Home() {
                     </a>
                     <a
                         href="#footer"
-                        className="px-5 py-2 rounded-full font-semibold border border-[var(--accent-primary)] text-[var(--accent-primary)] bg-transparent hover:bg-[var(--accent-primary)] hover:text-white transition-colors shadow-sm"
+                        className="px-5 py-2 rounded-full font-semibold border border-[var(--accent-primary)] text-[var(--accent-primary)] bg-transparent shadow-sm transition-all duration-200 hover:scale-105 hover:bg-[var(--accent-primary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]"
                     >
                         Contact Me
                     </a>
@@ -97,16 +119,16 @@ function Home() {
                     </div>
                 </div>
                 {/* Quick stats */}
-                <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-xl mx-auto">
-                    <Stat value={`${details.years} yrs`} label="Experience" />
-                    <Stat value={details.projects} label="Projects" />
-                    <Stat value={details.location} label="Location" />
+                <div className="mt-8 grid grid-cols-2 md:grid-cols-2 gap-4 w-full max-w-xl mx-auto">
+                    {[{value: details.projects, label: 'Projects'}, {value: details.location, label: 'Location'}].map((stat, i) => (
+                        <Stat key={stat.label} value={stat.value} label={stat.label} index={i} />
+                    ))}
                 </div>
                 {/* Tech stack chips */}
                 <div className="mt-6 flex flex-wrap justify-center gap-2">
-                    {details.stack.map(s => (<Chip key={s}>{s}</Chip>))}
+                    {details.stack.map((s, i) => (<Chip key={s} index={i}>{s}</Chip>))}
                     {details.moreStack > 0 && (
-                        <span className="px-3 py-1 rounded-full text-sm glass-surface border border-[var(--border-glass)] opacity-70">+{details.moreStack} more</span>
+                        <span className="px-3 py-1 rounded-full text-sm glass-surface border border-[var(--border-glass)] opacity-70 animate-fadeinup" style={{animationDelay: `${0.3 + details.stack.length * 0.07}s`, animationFillMode: 'both'}}>+{details.moreStack} more</span>
                     )}
                 </div>
             </div>
