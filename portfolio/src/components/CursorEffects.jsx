@@ -18,6 +18,7 @@ const CursorEffects = () => {
 			particleSpeed: [0.02, 0.08],
 			particleDrag: 0.985,
 			particlesPerMove: [2, 4],
+			maxParticles: 700,
 			// Ripples (smaller, slower, more transparent, single ring)
 			rippleMaxRadius: 48,
 			rippleLineWidth: 2.2,
@@ -38,7 +39,15 @@ const CursorEffects = () => {
 			const particles = particlesRef.current;
 			// Improved theme match: modern blue for light, light blue for dark
 			const hue = isDark ? 195 : 206;
-			for (let i = 0; i < count; i++) {
+			// Respect particle cap to avoid stalls after reloads
+			const { maxParticles } = cfgRef.current;
+			if (particles.length > maxParticles) {
+				const overflow = particles.length - maxParticles;
+				particles.splice(0, overflow);
+			}
+			const budget = Math.max(0, maxParticles - particles.length);
+			const toSpawn = Math.min(count, budget);
+			for (let i = 0; i < toSpawn; i++) {
 				const angle = rand(0, Math.PI * 2);
 				const speed = rand(cfgRef.current.particleSpeed[0], cfgRef.current.particleSpeed[1]);
 				particles.push({
@@ -64,7 +73,11 @@ const CursorEffects = () => {
 
 	const draw = useCallback((ctx, dt) => {
 		const { composite, rippleDuration, rippleLineWidth, rippleMaxRadius, particleDrag } = cfgRef.current;
+		// Clear full canvas independent of transform (fixes DPR artifacts)
+		ctx.save();
+		ctx.setTransform(1, 0, 0, 1, 0, 0);
 		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+		ctx.restore();
 		ctx.save();
 		ctx.globalCompositeOperation = composite;
 
@@ -153,13 +166,12 @@ const CursorEffects = () => {
 				// If animation frame was stopped for any reason, restart it
 				if (!rafRef.current) {
 					let lastTime = performance.now();
-					const ctx = canvas.getContext('2d');
-					const loop = (t) => {
-						const dt = Math.min(50, t - lastTime); lastTime = t;
-						draw(ctx, dt);
+						const loop = (t) => {
+							const dt = Math.min(50, t - lastTime); lastTime = t;
+							try { draw(ctx, dt); } catch (err) { console.error('CursorEffects draw error (resume):', err); }
+							rafRef.current = requestAnimationFrame(loop);
+						};
 						rafRef.current = requestAnimationFrame(loop);
-					};
-					rafRef.current = requestAnimationFrame(loop);
 				}
 			};
 		window.addEventListener('mousemove', onMove, { passive: true });
@@ -169,7 +181,7 @@ const CursorEffects = () => {
 		let lastTime = performance.now();
 		const loop = (t) => {
 			const dt = Math.min(50, t - lastTime); lastTime = t;
-			draw(ctx, dt);
+			try { draw(ctx, dt); } catch (err) { console.error('CursorEffects draw error:', err); }
 			rafRef.current = requestAnimationFrame(loop);
 		};
 		rafRef.current = requestAnimationFrame(loop);
@@ -178,6 +190,10 @@ const CursorEffects = () => {
 			if (document.hidden && rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
 			else if (!document.hidden && !rafRef.current) { lastTime = performance.now(); rafRef.current = requestAnimationFrame(loop); }
 		};
+		// Resume on pageshow (e.g., bfcache restore) or window focus
+		const onPageShow = () => { if (!rafRef.current) { lastTime = performance.now(); rafRef.current = requestAnimationFrame(loop); } };
+		window.addEventListener('pageshow', onPageShow);
+		window.addEventListener('focus', onPageShow);
 		document.addEventListener('visibilitychange', onVis);
 		return () => {
 			if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -185,6 +201,8 @@ const CursorEffects = () => {
 			window.removeEventListener('touchmove', onTouch);
 			window.removeEventListener('click', onClick);
 			window.removeEventListener('resize', resize);
+			window.removeEventListener('pageshow', onPageShow);
+			window.removeEventListener('focus', onPageShow);
 			document.removeEventListener('visibilitychange', onVis);
 			particlesRef.current = []; ripplesRef.current = [];
 		};

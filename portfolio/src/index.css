@@ -136,6 +136,12 @@ body {
               color var(--animation-duration-normal) var(--easing-smooth);
 }
 
+/* Global animation gate: pause all animations until loader releases */
+html[data-animations-paused="true"] *:not([data-loader="true"]) {
+  animation-play-state: paused !important;
+  transition-duration: 0s !important;
+}
+
 /* Typography Classes */
 .text-display {
   font-family: var(--font-display);
