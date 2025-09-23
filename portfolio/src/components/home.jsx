@@ -59,8 +59,8 @@ function Home() {
     // Professional, concise details
     const details = {
         name: 'Naveen Kumar G',
-        role: 'B.Tech AI & DS Student · Data Science Enthusiast',
-        tagline: 'Second-year undergraduate at KGISL Institute of Technology, Coimbatore. Passionate about AI, ML, and Data Science. Strong in Python, React, and modern web technologies. Experienced with REST APIs, RPA (UiPath), and hardware integration.',
+    role: 'B.Tech AI & DS Student · Full‑Stack & Data Science Enthusiast',
+    tagline: 'Passionate about technology, innovation, and solving real-world problems through teamwork, rapid prototyping, and automation. I enjoy building scalable web apps, experimenting with AI/ML, and automating tasks to make life easier.',
         location: 'Coimbatore',
         projects: '10+',
         resumeUrl: '#',
@@ -83,7 +83,7 @@ function Home() {
             </div>
             <div className="relative z-10 max-w-3xl mx-auto px-4 md:px-0 flex flex-col items-center text-center">
                 <p className="text-xs tracking-widest uppercase opacity-70 mb-2 mt-2" >Welcome to my portfolio</p>
-                <h1 className="text-display text-5xl md:text-6xl font-bold leading-tight mb-2 flex flex-wrap items-center justify-center">
+                <h1 className="text-display text-5xl md:text-6xl font-bold leading-tight mb-2 flex flex-wrap items-center justify-center" style = {{color:'white'}}>
                     <span>Hi, I’m&nbsp;</span>
                     <span
                         className="text-glow typewriter"
@@ -92,10 +92,10 @@ function Home() {
                         {details.name}
                     </span>
                 </h1>
-                <h2 className="mt-1 text-xl md:text-2xl font-medium opacity-90 mb-2">{details.role}</h2>
-                                                <p className="mt-2 text-base md:text-lg opacity-80 max-w-6xl mx-auto mb-4" style={{lineHeight:1.7}}>
-                                                    Second-year undergraduate at KGISL Institute of Technology, Coimbatore. Passionate about Artificial Intelligence, Machine Learning, and Data Science. I have a strong foundation in Python, React, and modern web technologies, and hands-on experience with REST APIs, RPA (UiPath), and hardware integration through academic and personal projects.
-                                                </p>
+                                <h2 className="mt-1 text-xl md:text-2xl font-medium opacity-90 mb-2">{details.role}</h2>
+                                <p className="mt-2 text-base md:text-lg opacity-80 max-w-6xl mx-auto mb-4" style={{ lineHeight: 1.7, color: 'var(--text-primary)' }}>
+                                    {details.tagline}
+                                </p>
                 {/* Actions */}
                 <div className="mt-4 flex items-center justify-center gap-2 flex-wrap">
                     <a

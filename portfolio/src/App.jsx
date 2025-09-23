@@ -2,6 +2,7 @@ import Navbar from './components/navbar';
 import { useTheme } from './hooks/useTheme';
 import Background from './components/Background';
 import Home from './components/home';
+import About from './components/about';
 import Footer from './components/footer';
 import CursorEffects from './components/CursorEffects';
 import Loader from './components/Loader';
@@ -19,6 +20,7 @@ function App() {
       {/* Main content with top padding for navbar */}
       <main className="relative z-10">
         <Home />
+        <About />
       </main>
       <Footer />
     </div>

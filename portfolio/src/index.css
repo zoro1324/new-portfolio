@@ -57,22 +57,24 @@
 
 /* Light Theme - Twilight Sea (muted, more contrast) */
 [data-theme="light"] {
-  --color-sky-start: #cfe8ff; /* cool sky */
-  --color-sky-mid: #a9d2ee;  /* muted cyan */
-  --color-sky-end: #7fb8d4;  /* gentle teal */
-  --color-teal-light: #6fb1c8;
-  --color-ink: #0f1a2a;      /* strong ink for text */
+  /* Tortoise Blue Theme (light variant) */
+  /* Palette: deep tortoise blues and teals with warm sand accents */
+  --tortoise-sky: #b9dfe5;     /* pale tortoise shell blue */
+  --tortoise-sea: #89c2c9;     /* sea teal */
+  --tortoise-cove: #5aa4ad;    /* mid teal */
+  --tortoise-deep: #2f6f7a;    /* deep tortoise blue */
+  --tortoise-ink: #0e1b24;     /* high-contrast ink */
 
-  --bg-primary: linear-gradient(135deg, var(--color-sky-start) 0%, var(--color-sky-mid) 45%, var(--color-sky-end) 100%);
-  --bg-secondary: var(--color-teal-light);
-  --text-primary: var(--color-ink);
-  --text-secondary: #2f3e53;
-  --text-muted: #5c6b80;
-  --accent-primary: #0ea5e9;  /* sky blue accent, subdued glow */
+  --bg-primary: linear-gradient(135deg, var(--tortoise-sky) 0%, var(--tortoise-sea) 45%, var(--tortoise-cove) 100%);
+  --bg-secondary: var(--tortoise-sea);
+  --text-primary: var(--tortoise-ink);
+  --text-secondary: #28414d;
+  --text-muted: #5a7380;
+  --accent-primary: #2f6f7a; /* deep tortoise blue for accents */
   --accent-secondary: var(--color-sand-dark);
-  --surface-glass: rgba(255, 255, 255, 0.55);
-  --border-glass: rgba(255, 255, 255, 0.7);
-  --glow-primary: 0 2px 6px rgba(14, 165, 233, 0.12);
+  --surface-glass: rgba(255, 255, 255, 0.52);
+  --border-glass: rgba(255, 255, 255, 0.68);
+  --glow-primary: 0 2px 6px rgba(47, 111, 122, 0.18);
   --glow-secondary: 0 2px 6px rgba(212, 172, 13, 0.12);
 }
 
@@ -186,9 +188,10 @@ html[data-animations-paused="true"] *:not([data-loader="true"]) {
 }
 
 [data-theme="light"] {
-  --wave-color: rgba(15, 26, 42, 0.18);
-  --silhouette-color: rgba(15, 26, 42, 0.10);
-  --wave-highlight: rgba(15, 26, 42, 0.28);
+  /* Tortoise Blue wave tones */
+  --wave-color: rgba(14, 27, 36, 0.20);
+  --silhouette-color: rgba(14, 27, 36, 0.10);
+  --wave-highlight: rgba(47, 111, 122, 0.32);
 }
 
 .bg-layers {
@@ -361,8 +364,8 @@ html[data-animations-paused="true"] *:not([data-loader="true"]) {
 }
 
 [data-theme="light"] .fish {
-  color: #0e7490; /* teal-ink */
-  opacity: 0.72;
+  color: #2f6f7a; /* tortoise blue accent */
+  opacity: 0.75;
   filter: drop-shadow(0 0 3px rgba(0,0,0,0.15));
 }
 
