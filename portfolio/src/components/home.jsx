@@ -56,33 +56,37 @@ function Chip({ children, index }) {
 }
 
 function Home() {
-    // Professional, concise details
+    // Professional, concise details - hero section focused
     const details = {
         name: 'Naveen Kumar G',
-    role: 'B.Tech AI & DS Student · Full‑Stack & Data Science Enthusiast',
-    tagline: 'Passionate about technology, innovation, and solving real-world problems through teamwork, rapid prototyping, and automation. I enjoy building scalable web apps, experimenting with AI/ML, and automating tasks to make life easier.',
+        role: 'B.Tech AI & DS Student · Full‑Stack & Data Science Enthusiast',
+        tagline: 'Bringing ideas to life through code and data analysis',
         location: 'Coimbatore',
         projects: '10+',
-        resumeUrl: '#',
         email: 'naveen13524g@gmail.com',
+        resumeUrl: '#', // Add your actual resume URL here
         socials: {
             github: 'https://github.com/zoro1324',
             linkedin: 'https://www.linkedin.com/in/your-username/'
         },
-        stack: [
-            'Python', 'Data Science', 'Machine Learning', 'React', 'REST APIs', 'UiPath RPA', 'Tailwind CSS', 'JavaScript'
-        ],
-        moreStack: 5 // Number of extra skills not shown
+        // Core tech stack - just highlight main technologies
+        stack: ['React', 'Python', 'JavaScript', 'Data Science', 'Machine Learning'],
+        moreStack: 3 // Indicating there are more technologies
     };
 
     return (
         <section id="home" className="relative z-10 pt-24 md:pt-32 pb-12">
-            {/* Subtle overlay for contrast */}
-            <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+            {/* Hero Background with animated gradient */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
                 <div className="w-full h-full bg-white/60 dark:bg-[#0a0a1a]/60 backdrop-blur-[2px]" />
+                <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-gradient-to-br from-[var(--accent-primary)]/20 to-transparent rounded-full blur-3xl animate-pulse" style={{animationDuration: '8s'}}></div>
+                <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-gradient-to-tr from-[var(--accent-secondary)]/20 to-transparent rounded-full blur-3xl animate-pulse" style={{animationDuration: '10s', animationDelay: '1s'}}></div>
             </div>
             <div className="relative z-10 max-w-3xl mx-auto px-4 md:px-0 flex flex-col items-center text-center">
-                <p className="text-xs tracking-widest uppercase opacity-70 mb-2 mt-2" >Welcome to my portfolio</p>
+                {/* Animated welcome banner */}
+                <div className="mb-4 px-4 py-1 rounded-full glass-surface animate-fadeinslow border border-[var(--border-glass)]">
+                    <span className="text-xs tracking-widest uppercase opacity-80">Welcome to my portfolio</span>
+                </div>
                 <h1 className="text-display text-5xl md:text-6xl font-bold leading-tight mb-2 flex flex-wrap items-center justify-center" style = {{color:'white'}}>
                     <span>Hi, I’m&nbsp;</span>
                     <span
@@ -92,44 +96,55 @@ function Home() {
                         {details.name}
                     </span>
                 </h1>
-                                <h2 className="mt-1 text-xl md:text-2xl font-medium opacity-90 mb-2">{details.role}</h2>
-                                <p className="mt-2 text-base md:text-lg opacity-80 max-w-6xl mx-auto mb-4" style={{ lineHeight: 1.7, color: 'var(--text-primary)' }}>
-                                    {details.tagline}
-                                </p>
-                {/* Actions */}
-                <div className="mt-4 flex items-center justify-center gap-2 flex-wrap">
+                {/* Role title with subtle animation */}
+                <h2 className="mt-1 text-xl md:text-2xl font-medium opacity-90 mb-3 animate-fadeinup" style={{animationDelay: '0.6s'}}>
+                    {details.role}
+                </h2>
+                {/* Tagline - short description */}
+                <p className="mt-2 text-base md:text-lg opacity-80 max-w-lg mx-auto mb-6 animate-fadeinup" 
+                   style={{ 
+                       lineHeight: 1.7, 
+                       color: 'var(--text-primary)',
+                       animationDelay: '0.8s' 
+                   }}>
+                    {details.tagline}
+                </p>
+                {/* Primary Call-to-Actions */}
+                <div className="mt-4 flex items-center justify-center gap-3 flex-wrap animate-fadeinup" style={{animationDelay: '1s'}}>
+                    <a
+                        href="#about"
+                        className="px-6 py-3 rounded-full font-medium bg-[var(--accent-primary)] text-white shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]"
+                    >
+                        About Me
+                    </a>
                     <a
                         href={details.resumeUrl}
-                        className="px-5 py-2 rounded-full font-semibold border border-[var(--accent-primary)] text-[var(--accent-primary)] bg-transparent shadow-sm transition-all duration-200 hover:scale-105 hover:bg-[var(--accent-primary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]"
+                        className="px-6 py-3 rounded-full font-medium border border-[var(--accent-primary)] text-[var(--accent-primary)] bg-transparent shadow-sm transition-all duration-300 hover:scale-105 hover:bg-[var(--accent-primary)]/10 focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]"
                         target={details.resumeUrl?.startsWith('http') ? '_blank' : undefined}
                         rel={details.resumeUrl?.startsWith('http') ? 'noreferrer noopener' : undefined}
                     >
-                        View Resume
+                        Download CV
                     </a>
-                    <a
-                        href="#footer"
-                        className="px-5 py-2 rounded-full font-semibold border border-[var(--accent-primary)] text-[var(--accent-primary)] bg-transparent shadow-sm transition-all duration-200 hover:scale-105 hover:bg-[var(--accent-primary)] hover:text-white focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)]"
-                    >
-                        Contact Me
-                    </a>
-                    <div className="flex items-center gap-2 ml-1">
+                </div>
+                
+                {/* Social links */}
+                <div className="mt-6 animate-fadeinup" style={{animationDelay: '1.2s'}}>
+                    <div className="flex items-center justify-center gap-3">
                         <SocialIcon type="github" href={details.socials.github} label="GitHub" />
                         <SocialIcon type="linkedin" href={details.socials.linkedin} label="LinkedIn" />
                         <SocialIcon type="mail" href={`mailto:${details.email}`} label="Send email" />
                     </div>
                 </div>
-                {/* Quick stats */}
-                <div className="mt-8 grid grid-cols-2 md:grid-cols-2 gap-4 w-full max-w-xl mx-auto">
-                    {[{value: details.projects, label: 'Projects'}, {value: details.location, label: 'Location'}].map((stat, i) => (
-                        <Stat key={stat.label} value={stat.value} label={stat.label} index={i} />
-                    ))}
+                {/* Quick highlight stats */}
+                <div className="mt-10 grid grid-cols-2 md:grid-cols-2 gap-4 w-full max-w-sm mx-auto">
+                    <Stat value={details.projects} label="Projects" index={0} />
+                    <Stat value={details.location} label="Location" index={1} />
                 </div>
-                {/* Tech stack chips */}
-                <div className="mt-6 flex flex-wrap justify-center gap-2">
-                    {details.stack.map((s, i) => (<Chip key={s} index={i}>{s}</Chip>))}
-                    {details.moreStack > 0 && (
-                        <span className="px-3 py-1 rounded-full text-sm glass-surface border border-[var(--border-glass)] opacity-70 animate-fadeinup" style={{animationDelay: `${0.3 + details.stack.length * 0.07}s`, animationFillMode: 'both'}}>+{details.moreStack} more</span>
-                    )}
+                {/* Scroll down indicator */}
+                <div className="mt-12 animate-bounce opacity-70">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 5v14m0 0l-4-4m4 4l4-4"></path>
+                    </svg>
                 </div>
             </div>
         </section>
